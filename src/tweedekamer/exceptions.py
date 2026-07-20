@@ -44,3 +44,10 @@ class QueryError(TweedekamerError):
     def __init__(self, message: str, *, details: Any = None) -> None:
         super().__init__(message)
         self.details = details
+
+
+class SecurityError(TweedekamerError):
+    """Raised when a request or payload violates client-side safety checks.
+
+    Examples: pagination URL host mismatch, invalid entity id format.
+    """

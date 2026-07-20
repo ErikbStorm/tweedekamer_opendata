@@ -19,6 +19,7 @@ from tweedekamer._http import (
     ensure_client,
     raise_for_status,
 )
+from tweedekamer._security import assert_url_allowed, parse_xml, require_entity_id
 from tweedekamer._version import __version__
 
 ATOM_NS = "http://www.w3.org/2005/Atom"
@@ -145,7 +146,7 @@ def _parse_datetime(value: str | None) -> datetime | None:
 
 def parse_feed(xml_bytes: bytes) -> FeedPage:
     """Parse a SyncFeed Atom document into a :class:`FeedPage`."""
-    root = etree.fromstring(xml_bytes)
+    root = parse_xml(xml_bytes)
 
     def find_text(path: str) -> str | None:
         el = root.find(path, NS)
@@ -275,23 +276,32 @@ class SyncFeedClient:
         return parse_feed(response.content)
 
     def fetch_url(self, url: str) -> FeedPage:
-        """Fetch a feed page by absolute next-link URL."""
-        response = self._http.get(url)
+        """Fetch a feed page by absolute next-link URL.
+
+        The URL host must match this client's ``base_url`` origin (SSRF protection).
+        """
+        safe_url = assert_url_allowed(
+            url,
+            allowed_base=self.base_url,
+            purpose="SyncFeed next link",
+        )
+        response = self._http.get(safe_url)
         raise_for_status(response)
         return parse_feed(response.content)
 
     def get_entity(self, entity_id: UUID | str) -> bytes:
         """Download the XML body of a single entity by id."""
-        response = self._http.get(f"{self.base_url}/Entiteiten/{entity_id}")
+        eid = require_entity_id(entity_id)
+        response = self._http.get(f"{self.base_url}/Entiteiten/{eid}")
         raise_for_status(response)
         return response.content
 
     def get_entity_parsed(self, entity_id: UUID | str) -> dict[str, Any]:
         """Download and parse a single entity as a dict."""
         raw = self.get_entity(entity_id)
-        root = etree.fromstring(raw)
-        # response may be the entity element directly or wrapped
-        return _element_to_dict(root)
+        root = parse_xml(raw)
+        parsed = _element_to_dict(root)
+        return parsed if isinstance(parsed, dict) else {"value": parsed}
 
     def download_resource(
         self,
@@ -300,7 +310,8 @@ class SyncFeedClient:
         path: str | None = None,
     ) -> bytes:
         """Download the binary resource for an entity (SyncFeed Resources endpoint)."""
-        response = self._http.get(f"{self.base_url}/Resources/{entity_id}")
+        eid = require_entity_id(entity_id)
+        response = self._http.get(f"{self.base_url}/Resources/{eid}")
         raise_for_status(response)
         content = response.content
         if path is not None:

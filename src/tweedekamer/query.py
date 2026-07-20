@@ -8,6 +8,7 @@ from urllib.parse import quote
 from uuid import UUID
 
 from tweedekamer._http import PAGE_SIZE, parse_json, raise_for_status
+from tweedekamer._security import assert_url_allowed, require_entity_id
 from tweedekamer.exceptions import NotFoundError, QueryError
 from tweedekamer.models.base import EntityBase
 
@@ -167,7 +168,8 @@ class ODataQuery(Generic[T]):
         """Return the absolute URL for this query (without query string for path-only)."""
         path = f"{self._base_url}/{self._entity_set}"
         if entity_id is not None:
-            path = f"{path}({entity_id})"
+            eid = require_entity_id(entity_id)
+            path = f"{path}({eid})"
         if resource:
             path = f"{path}/resource"
         return path
@@ -252,7 +254,11 @@ class ODataQuery(Generic[T]):
 
             next_link = data.get("@odata.nextLink") or data.get("odata.nextLink")
             if next_link:
-                next_url = next_link
+                next_url = assert_url_allowed(
+                    str(next_link),
+                    allowed_base=self._base_url,
+                    purpose="OData @odata.nextLink",
+                )
                 next_params = None  # nextLink is complete
                 continue
 

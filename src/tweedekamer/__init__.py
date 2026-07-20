@@ -12,6 +12,7 @@ from tweedekamer.exceptions import (
     HTTPError,
     NotFoundError,
     QueryError,
+    SecurityError,
     TweedekamerError,
 )
 from tweedekamer.syncfeed import FeedEntry, FeedPage, SyncFeedClient
@@ -25,5 +26,6 @@ __all__ = [
     "HTTPError",
     "NotFoundError",
     "QueryError",
+    "SecurityError",
     "__version__",
 ]
