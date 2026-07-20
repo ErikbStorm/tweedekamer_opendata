@@ -1,0 +1,80 @@
+[project]
+name = "tweedekamer"
+version = "0.1.0"
+description = "Python client for the Tweede Kamer Open Data Portaal (OData + SyncFeed)"
+readme = "README.md"
+license = "MIT"
+authors = [
+    { name = "Erik", email = "erikbstorm@outlook.com" }
+]
+requires-python = ">=3.11"
+keywords = [
+    "tweedekamer",
+    "open-data",
+    "odata",
+    "parlement",
+    "netherlands",
+    "syncfeed",
+]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: Developers",
+    "Intended Audience :: Science/Research",
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "Topic :: Internet :: WWW/HTTP",
+    "Topic :: Software Development :: Libraries :: Python Modules",
+    "Typing :: Typed",
+]
+dependencies = [
+    "httpx>=0.27",
+    "lxml>=5.0",
+    "pydantic>=2",
+]
+
+[project.urls]
+Homepage = "https://opendata.tweedekamer.nl/documentatie/introductie"
+Documentation = "https://opendata.tweedekamer.nl/documentatie/introductie"
+Source = "https://github.com/"
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[dependency-groups]
+dev = [
+    "mkdocs-material>=9.7.7",
+    "mkdocstrings[python]>=1.0.6",
+    "pytest>=9.1.1",
+    "pytest-cov>=7.1.0",
+    "respx>=0.23.1",
+    "ruff>=0.15.22",
+]
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/tweedekamer"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+markers = [
+    "integration: hits the live Tweede Kamer API (deselected by default)",
+]
+addopts = "-q"
+
+[tool.ruff]
+line-length = 100
+target-version = "py311"
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "UP", "B"]
+ignore = ["E501"]
+
+[tool.ruff.lint.per-file-ignores]
+"src/tweedekamer/models/*" = ["I001"]
+
+[tool.coverage.run]
+source = ["tweedekamer"]
+branch = true
