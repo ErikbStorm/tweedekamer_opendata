@@ -1,21 +1,23 @@
-# tweedekamer
+# tweedekamer_opendata
 
 Python client for the [Tweede Kamer Open Data Portaal](https://opendata.tweedekamer.nl/documentatie/introductie).
 
 Query parliamentary data (members, motions, documents, votes, committees, …) through the **OData** API, or keep a local copy in sync with the **SyncFeed** API.
+
+**Install as** `tweedekamer_opendata` · **import as** `tweedekamer`.
 
 ## Install
 
 With [uv](https://docs.astral.sh/uv/):
 
 ```bash
-uv add tweedekamer
+uv add tweedekamer_opendata
 ```
 
 Or with pip:
 
 ```bash
-pip install tweedekamer
+pip install tweedekamer_opendata
 ```
 
 From a local checkout:

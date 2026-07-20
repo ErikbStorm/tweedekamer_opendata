@@ -103,8 +103,7 @@ def fetch_entities() -> dict[str, dict]:
     for et in schema.findall("edm:EntityType", NS):
         name = et.get("Name")
         props = [
-            {"name": p.get("Name"), "type": p.get("Type")}
-            for p in et.findall("edm:Property", NS)
+            {"name": p.get("Name"), "type": p.get("Type")} for p in et.findall("edm:Property", NS)
         ]
         navs = [
             {"name": n.get("Name"), "type": n.get("Type")}

@@ -1,4 +1,4 @@
-site_name: tweedekamer
+site_name: tweedekamer_opendata
 site_description: Python client for the Tweede Kamer Open Data Portaal
 site_url: ""
 
@@ -51,4 +51,5 @@ markdown_extensions:
   - toc:
       permalink: true
 
-repo_name: tweedekamer
+repo_name: ErikbStorm/tweedekamer_opendata
+repo_url: https://github.com/ErikbStorm/tweedekamer_opendata

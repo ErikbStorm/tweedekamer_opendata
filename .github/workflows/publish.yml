@@ -1,0 +1,86 @@
+# Publish to PyPI via Trusted Publishing (OIDC) — no long-lived API token.
+#
+# Triggers:
+#   - GitHub Release published (preferred)
+#   - Manual run (workflow_dispatch)
+#
+# One-time PyPI setup:
+#   1. Create a GitHub Environment named "pypi" (Settings → Environments).
+#   2. On PyPI: Publishing → Add a new pending/trusted publisher:
+#        Owner:        ErikbStorm
+#        Repository:   tweedekamer_opendata
+#        Workflow:     publish.yml
+#        Environment:  pypi
+#   Docs: https://docs.pypi.org/trusted-publishers/adding-a-publisher/
+#         https://docs.astral.sh/uv/guides/integration/github/#publishing-your-package
+
+name: Publish to PyPI
+
+on:
+  release:
+    types: [published]
+  workflow_dispatch:
+    inputs:
+      confirm:
+        description: 'Type "publish" to confirm a manual upload'
+        required: true
+        type: string
+
+permissions:
+  contents: read
+
+jobs:
+  test:
+    name: Test
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install uv
+        uses: astral-sh/setup-uv@v6
+        with:
+          enable-cache: true
+
+      - name: Set up Python
+        run: uv python install 3.12
+
+      - name: Install dependencies
+        run: uv sync --locked --all-groups
+
+      - name: Ruff
+        run: uv run ruff check src tests
+
+      - name: Pytest
+        run: uv run pytest
+
+  publish:
+    name: Build & publish
+    needs: test
+    runs-on: ubuntu-latest
+    if: >
+      github.event_name == 'release' ||
+      (github.event_name == 'workflow_dispatch' && github.event.inputs.confirm == 'publish')
+    environment:
+      name: pypi
+      url: https://pypi.org/p/tweedekamer_opendata
+    permissions:
+      contents: read
+      # Required for PyPI Trusted Publishing (OIDC)
+      id-token: write
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install uv
+        uses: astral-sh/setup-uv@v6
+        with:
+          enable-cache: true
+
+      - name: Set up Python
+        run: uv python install 3.12
+
+      - name: Build distributions
+        run: uv build
+
+      - name: Publish to PyPI
+        run: uv publish

@@ -1,4 +1,5 @@
 """Domain models for commissie entities."""
+
 from __future__ import annotations
 
 from datetime import datetime
@@ -37,7 +38,9 @@ class Commissie(EntityBase):
     verwijderd: bool | None = Field(default=None, alias="Verwijderd")
     activiteit: list[Activiteit] | None = Field(default=None, alias="Activiteit")
     activiteit_actor: list[ActiviteitActor] | None = Field(default=None, alias="ActiviteitActor")
-    commissie_contactinformatie: list[CommissieContactinformatie] | None = Field(default=None, alias="CommissieContactinformatie")
+    commissie_contactinformatie: list[CommissieContactinformatie] | None = Field(
+        default=None, alias="CommissieContactinformatie"
+    )
     commissie_zetel: list[CommissieZetel] | None = Field(default=None, alias="CommissieZetel")
     document_actor: list[DocumentActor] | None = Field(default=None, alias="DocumentActor")
     zaak_actor: list[ZaakActor] | None = Field(default=None, alias="ZaakActor")
@@ -66,10 +69,18 @@ class CommissieZetel(EntityBase):
     verwijderd: bool | None = Field(default=None, alias="Verwijderd")
     commissie__id: UUID | None = Field(default=None, alias="Commissie_Id")
     commissie: Commissie | None = Field(default=None, alias="Commissie")
-    commissie_zetel_vast_persoon: list[CommissieZetelVastPersoon] | None = Field(default=None, alias="CommissieZetelVastPersoon")
-    commissie_zetel_vast_vacature: list[CommissieZetelVastVacature] | None = Field(default=None, alias="CommissieZetelVastVacature")
-    commissie_zetel_vervanger_persoon: list[CommissieZetelVervangerPersoon] | None = Field(default=None, alias="CommissieZetelVervangerPersoon")
-    commissie_zetel_vervanger_vacature: list[CommissieZetelVervangerVacature] | None = Field(default=None, alias="CommissieZetelVervangerVacature")
+    commissie_zetel_vast_persoon: list[CommissieZetelVastPersoon] | None = Field(
+        default=None, alias="CommissieZetelVastPersoon"
+    )
+    commissie_zetel_vast_vacature: list[CommissieZetelVastVacature] | None = Field(
+        default=None, alias="CommissieZetelVastVacature"
+    )
+    commissie_zetel_vervanger_persoon: list[CommissieZetelVervangerPersoon] | None = Field(
+        default=None, alias="CommissieZetelVervangerPersoon"
+    )
+    commissie_zetel_vervanger_vacature: list[CommissieZetelVervangerVacature] | None = Field(
+        default=None, alias="CommissieZetelVervangerVacature"
+    )
 
 
 class CommissieZetelVastPersoon(EntityBase):
@@ -134,4 +145,3 @@ class CommissieZetelVervangerVacature(EntityBase):
     fractie__id: UUID | None = Field(default=None, alias="Fractie_Id")
     commissie_zetel: CommissieZetel | None = Field(default=None, alias="CommissieZetel")
     fractie: Fractie | None = Field(default=None, alias="Fractie")
-

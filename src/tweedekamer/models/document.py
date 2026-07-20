@@ -1,4 +1,5 @@
 """Domain models for document entities."""
+
 from __future__ import annotations
 
 from datetime import datetime
@@ -45,7 +46,9 @@ class Document(EntityBase):
     huidige_document_versie__id: UUID | None = Field(default=None, alias="HuidigeDocumentVersie_Id")
     document_actor: list[DocumentActor] | None = Field(default=None, alias="DocumentActor")
     document_versie: list[DocumentVersie] | None = Field(default=None, alias="DocumentVersie")
-    huidige_document_versie: DocumentVersie | None = Field(default=None, alias="HuidigeDocumentVersie")
+    huidige_document_versie: DocumentVersie | None = Field(
+        default=None, alias="HuidigeDocumentVersie"
+    )
     activiteit: list[Activiteit] | None = Field(default=None, alias="Activiteit")
     agendapunt: list[Agendapunt] | None = Field(default=None, alias="Agendapunt")
     bijlage_document: list[Document] | None = Field(default=None, alias="BijlageDocument")
@@ -91,8 +94,12 @@ class DocumentVersie(EntityBase):
     document__id: UUID | None = Field(default=None, alias="Document_Id")
     externe_identifier: str | None = Field(default=None, alias="ExterneIdentifier")
     document: Document | None = Field(default=None, alias="Document")
-    document_publicatie: list[DocumentPublicatie] | None = Field(default=None, alias="DocumentPublicatie")
-    document_publicatie_metadata: list[DocumentPublicatieMetadata] | None = Field(default=None, alias="DocumentPublicatieMetadata")
+    document_publicatie: list[DocumentPublicatie] | None = Field(
+        default=None, alias="DocumentPublicatie"
+    )
+    document_publicatie_metadata: list[DocumentPublicatieMetadata] | None = Field(
+        default=None, alias="DocumentPublicatieMetadata"
+    )
 
 
 class DocumentPublicatie(EntityBase):
@@ -150,4 +157,3 @@ class Kamerstukdossier(EntityBase):
     verwijderd: bool | None = Field(default=None, alias="Verwijderd")
     document: list[Document] | None = Field(default=None, alias="Document")
     zaak: list[Zaak] | None = Field(default=None, alias="Zaak")
-

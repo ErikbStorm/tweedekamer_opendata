@@ -1,5 +1,5 @@
 [project]
-name = "tweedekamer"
+name = "tweedekamer_opendata"
 version = "0.1.0"
 description = "Python client for the Tweede Kamer Open Data Portaal (OData + SyncFeed)"
 readme = "README.md"
@@ -10,6 +10,7 @@ authors = [
 requires-python = ">=3.11"
 keywords = [
     "tweedekamer",
+    "tweedekamer_opendata",
     "open-data",
     "odata",
     "parlement",
@@ -36,9 +37,10 @@ dependencies = [
 ]
 
 [project.urls]
-Homepage = "https://opendata.tweedekamer.nl/documentatie/introductie"
+Homepage = "https://github.com/ErikbStorm/tweedekamer_opendata"
 Documentation = "https://opendata.tweedekamer.nl/documentatie/introductie"
-Source = "https://github.com/"
+Source = "https://github.com/ErikbStorm/tweedekamer_opendata"
+Repository = "https://github.com/ErikbStorm/tweedekamer_opendata"
 
 [build-system]
 requires = ["hatchling"]
@@ -48,6 +50,7 @@ build-backend = "hatchling.build"
 dev = [
     "mkdocs-material>=9.7.7",
     "mkdocstrings[python]>=1.0.6",
+    "pre-commit>=4.6.0",
     "pytest>=9.1.1",
     "pytest-cov>=7.1.0",
     "respx>=0.23.1",

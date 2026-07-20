@@ -1,4 +1,5 @@
 """Domain models for persoon entities."""
+
 from __future__ import annotations
 
 from datetime import date, datetime
@@ -47,14 +48,24 @@ class Persoon(EntityBase):
     verwijderd: bool | None = Field(default=None, alias="Verwijderd")
     fractielabel: str | None = Field(default=None, alias="Fractielabel")
     activiteit_actor: list[ActiviteitActor] | None = Field(default=None, alias="ActiviteitActor")
-    commissie_zetel_vast_persoon: list[CommissieZetelVastPersoon] | None = Field(default=None, alias="CommissieZetelVastPersoon")
-    commissie_zetel_vervanger_persoon: list[CommissieZetelVervangerPersoon] | None = Field(default=None, alias="CommissieZetelVervangerPersoon")
+    commissie_zetel_vast_persoon: list[CommissieZetelVastPersoon] | None = Field(
+        default=None, alias="CommissieZetelVastPersoon"
+    )
+    commissie_zetel_vervanger_persoon: list[CommissieZetelVervangerPersoon] | None = Field(
+        default=None, alias="CommissieZetelVervangerPersoon"
+    )
     document_actor: list[DocumentActor] | None = Field(default=None, alias="DocumentActor")
-    fractie_zetel_persoon: list[FractieZetelPersoon] | None = Field(default=None, alias="FractieZetelPersoon")
-    persoon_contactinformatie: list[PersoonContactinformatie] | None = Field(default=None, alias="PersoonContactinformatie")
+    fractie_zetel_persoon: list[FractieZetelPersoon] | None = Field(
+        default=None, alias="FractieZetelPersoon"
+    )
+    persoon_contactinformatie: list[PersoonContactinformatie] | None = Field(
+        default=None, alias="PersoonContactinformatie"
+    )
     persoon_geschenk: list[PersoonGeschenk] | None = Field(default=None, alias="PersoonGeschenk")
     persoon_loopbaan: list[PersoonLoopbaan] | None = Field(default=None, alias="PersoonLoopbaan")
-    persoon_nevenfunctie: list[PersoonNevenfunctie] | None = Field(default=None, alias="PersoonNevenfunctie")
+    persoon_nevenfunctie: list[PersoonNevenfunctie] | None = Field(
+        default=None, alias="PersoonNevenfunctie"
+    )
     persoon_onderwijs: list[PersoonOnderwijs] | None = Field(default=None, alias="PersoonOnderwijs")
     persoon_reis: list[PersoonReis] | None = Field(default=None, alias="PersoonReis")
     stemming: list[Stemming] | None = Field(default=None, alias="Stemming")
@@ -125,7 +136,9 @@ class PersoonNevenfunctie(EntityBase):
     verwijderd: bool | None = Field(default=None, alias="Verwijderd")
     gewicht: int | None = Field(default=None, alias="Gewicht")
     persoon: Persoon | None = Field(default=None, alias="Persoon")
-    persoon_nevenfunctie_inkomsten: list[PersoonNevenfunctieInkomsten] | None = Field(default=None, alias="PersoonNevenfunctieInkomsten")
+    persoon_nevenfunctie_inkomsten: list[PersoonNevenfunctieInkomsten] | None = Field(
+        default=None, alias="PersoonNevenfunctieInkomsten"
+    )
 
 
 class PersoonNevenfunctieInkomsten(EntityBase):
@@ -145,7 +158,9 @@ class PersoonNevenfunctieInkomsten(EntityBase):
     api_gewijzigd_op: datetime | None = Field(default=None, alias="ApiGewijzigdOp")
     verwijderd: bool | None = Field(default=None, alias="Verwijderd")
     nevenfunctie__id: UUID | None = Field(default=None, alias="Nevenfunctie_Id")
-    persoon_nevenfunctie: PersoonNevenfunctie | None = Field(default=None, alias="PersoonNevenfunctie")
+    persoon_nevenfunctie: PersoonNevenfunctie | None = Field(
+        default=None, alias="PersoonNevenfunctie"
+    )
 
 
 class PersoonOnderwijs(EntityBase):
@@ -181,4 +196,3 @@ class PersoonReis(EntityBase):
     persoon__id: UUID | None = Field(default=None, alias="Persoon_Id")
     gewicht: int | None = Field(default=None, alias="Gewicht")
     persoon: Persoon | None = Field(default=None, alias="Persoon")
-

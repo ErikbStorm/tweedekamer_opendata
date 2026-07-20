@@ -1,4 +1,5 @@
 """Domain models for activiteit entities."""
+
 from __future__ import annotations
 
 from datetime import datetime
@@ -42,10 +43,18 @@ class Activiteit(EntityBase):
     voortouwkortenaam: str | None = Field(default=None, alias="Voortouwkortenaam")
     voortouwcommissie__id: UUID | None = Field(default=None, alias="Voortouwcommissie_Id")
     aanvraagdatum: datetime | None = Field(default=None, alias="Aanvraagdatum")
-    datum_verzoek_eerste_verlenging: datetime | None = Field(default=None, alias="DatumVerzoekEersteVerlenging")
-    datum_mededeling_eerste_verlenging: datetime | None = Field(default=None, alias="DatumMededelingEersteVerlenging")
-    datum_verzoek_tweede_verlenging: datetime | None = Field(default=None, alias="DatumVerzoekTweedeVerlenging")
-    datum_mededeling_tweede_verlenging: datetime | None = Field(default=None, alias="DatumMededelingTweedeVerlenging")
+    datum_verzoek_eerste_verlenging: datetime | None = Field(
+        default=None, alias="DatumVerzoekEersteVerlenging"
+    )
+    datum_mededeling_eerste_verlenging: datetime | None = Field(
+        default=None, alias="DatumMededelingEersteVerlenging"
+    )
+    datum_verzoek_tweede_verlenging: datetime | None = Field(
+        default=None, alias="DatumVerzoekTweedeVerlenging"
+    )
+    datum_mededeling_tweede_verlenging: datetime | None = Field(
+        default=None, alias="DatumMededelingTweedeVerlenging"
+    )
     vervaldatum: datetime | None = Field(default=None, alias="Vervaldatum")
     gewijzigd_op: datetime | None = Field(default=None, alias="GewijzigdOp")
     api_gewijzigd_op: datetime | None = Field(default=None, alias="ApiGewijzigdOp")
@@ -119,7 +128,9 @@ class Besluit(EntityBase):
     besluit_tekst: str | None = Field(default=None, alias="BesluitTekst")
     opmerking: str | None = Field(default=None, alias="Opmerking")
     status: str | None = Field(default=None, alias="Status")
-    agendapunt_zaak_besluit_volgorde: int | None = Field(default=None, alias="AgendapuntZaakBesluitVolgorde")
+    agendapunt_zaak_besluit_volgorde: int | None = Field(
+        default=None, alias="AgendapuntZaakBesluitVolgorde"
+    )
     gewijzigd_op: datetime | None = Field(default=None, alias="GewijzigdOp")
     api_gewijzigd_op: datetime | None = Field(default=None, alias="ApiGewijzigdOp")
     verwijderd: bool | None = Field(default=None, alias="Verwijderd")
@@ -209,4 +220,3 @@ class Reservering(EntityBase):
     activiteit_nummer: str | None = Field(default=None, alias="ActiviteitNummer")
     activiteit: list[Activiteit] | None = Field(default=None, alias="Activiteit")
     zaal: list[Zaal] | None = Field(default=None, alias="Zaal")
-

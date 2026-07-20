@@ -14,11 +14,7 @@ def main() -> None:
             .all()
         )
 
-        total = (
-            client.zaken.exclude_deleted()
-            .filter("Soort eq 'Motie'")
-            .count()
-        )
+        total = client.zaken.exclude_deleted().filter("Soort eq 'Motie'").count()
         print(f"Showing {len(moties)} recent moties (total matching: {total})")
         for zaak in moties:
             title = (zaak.titel or "")[:80]

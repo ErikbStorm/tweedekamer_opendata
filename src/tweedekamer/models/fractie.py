@@ -1,4 +1,5 @@
 """Domain models for fractie entities."""
+
 from __future__ import annotations
 
 from datetime import datetime
@@ -38,8 +39,12 @@ class Fractie(EntityBase):
     api_gewijzigd_op: datetime | None = Field(default=None, alias="ApiGewijzigdOp")
     verwijderd: bool | None = Field(default=None, alias="Verwijderd")
     activiteit_actor: list[ActiviteitActor] | None = Field(default=None, alias="ActiviteitActor")
-    commissie_vast_vacature: list[CommissieZetelVastVacature] | None = Field(default=None, alias="CommissieVastVacature")
-    commissie_vervanger_vacature: list[CommissieZetelVervangerVacature] | None = Field(default=None, alias="CommissieVervangerVacature")
+    commissie_vast_vacature: list[CommissieZetelVastVacature] | None = Field(
+        default=None, alias="CommissieVastVacature"
+    )
+    commissie_vervanger_vacature: list[CommissieZetelVervangerVacature] | None = Field(
+        default=None, alias="CommissieVervangerVacature"
+    )
     document_actor: list[DocumentActor] | None = Field(default=None, alias="DocumentActor")
     fractie_zetel: list[FractieZetel] | None = Field(default=None, alias="FractieZetel")
     stemming: list[Stemming] | None = Field(default=None, alias="Stemming")
@@ -57,8 +62,12 @@ class FractieZetel(EntityBase):
     api_gewijzigd_op: datetime | None = Field(default=None, alias="ApiGewijzigdOp")
     verwijderd: bool | None = Field(default=None, alias="Verwijderd")
     fractie: Fractie | None = Field(default=None, alias="Fractie")
-    fractie_zetel_persoon: list[FractieZetelPersoon] | None = Field(default=None, alias="FractieZetelPersoon")
-    fractie_zetel_vacature: list[FractieZetelVacature] | None = Field(default=None, alias="FractieZetelVacature")
+    fractie_zetel_persoon: list[FractieZetelPersoon] | None = Field(
+        default=None, alias="FractieZetelPersoon"
+    )
+    fractie_zetel_vacature: list[FractieZetelVacature] | None = Field(
+        default=None, alias="FractieZetelVacature"
+    )
 
 
 class FractieZetelPersoon(EntityBase):
@@ -89,4 +98,3 @@ class FractieZetelVacature(EntityBase):
     api_gewijzigd_op: datetime | None = Field(default=None, alias="ApiGewijzigdOp")
     verwijderd: bool | None = Field(default=None, alias="Verwijderd")
     fractie_zetel: FractieZetel | None = Field(default=None, alias="FractieZetel")
-

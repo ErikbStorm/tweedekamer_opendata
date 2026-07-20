@@ -1,4 +1,5 @@
 """Domain models for zaak entities."""
+
 from __future__ import annotations
 
 from datetime import datetime
@@ -122,4 +123,3 @@ class ToegezegdAan(EntityBase):
     toezegging: Toezegging | None = Field(default=None, alias="Toezegging")
     fractie: Fractie | None = Field(default=None, alias="Fractie")
     persoon: Persoon | None = Field(default=None, alias="Persoon")
-
